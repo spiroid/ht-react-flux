@@ -2,26 +2,22 @@
 
 // Lib imports
 import React from 'react';
+import Reflux from 'reflux';
+import reactMixin from 'react-mixin';
+
+import speakersStore from '../stores/speakers.store.js';
 
 class SpeakerList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {speakers: []};
-        /*
-        this.state = {speakers: [
-            {
-                name: 'Maxime Gaudin',
-            },
-            {
-                name: 'Jean Helou',
-            }
-        ]};
-        */
+        this.state = {
+           speakers: []
+        };
     }
 
     componentWillMount() {
         // When the component is mounted, it calls an get action
-        console.log('[COMPONENT] get speaker list action !');
+        console.log('[COMPONENT] TODO: trigger speakers list action !');
     }
 
     render() {
@@ -46,5 +42,6 @@ class SpeakerList extends React.Component {
         );
     }
 }
+reactMixin.onClass(SpeakerList, Reflux.connect(speakersStore, 'speakers')); 
 
 export default SpeakerList;
