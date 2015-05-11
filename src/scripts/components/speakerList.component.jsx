@@ -6,6 +6,7 @@ import Reflux from 'reflux';
 import reactMixin from 'react-mixin';
 
 import speakersStore from '../stores/speakers.store.js';
+import speakersActions from '../actions/speakers.actions.js';
 
 class SpeakerList extends React.Component {
     constructor(props) {
@@ -17,7 +18,8 @@ class SpeakerList extends React.Component {
 
     componentWillMount() {
         // When the component is mounted, it calls an get action
-        console.log('[COMPONENT] TODO: trigger speakers list action !');
+        console.log('[COMPONENT] trigger speakers list action !');
+        speakersActions.getSpeakers();
     }
 
     render() {
