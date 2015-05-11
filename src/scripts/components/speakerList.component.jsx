@@ -4,15 +4,19 @@
 import React from 'react';
 import Reflux from 'reflux';
 import reactMixin from 'react-mixin';
+import mui from 'material-ui';
 
 import speakersStore from '../stores/speakers.store.js';
 import speakersActions from '../actions/speakers.actions.js';
+
+var Snackbar = mui.Snackbar;
 
 class SpeakerList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-           speakers: []
+           speakers: [],
+           error: ''
         };
     }
 
@@ -24,10 +28,22 @@ class SpeakerList extends React.Component {
 
     render() {
         console.log('[COMPONENT] speakers list rendering !');
+
+        var snackbar;
+        if(this.state.error) {
+            snackbar = <Snackbar openOnMount={true} message={this.state.error} action="undo" />
+        }
+
         var list = this.state.speakers.map(function(speaker, n) {
-          return (
-              <li className="mui-menu-item" key={n}>{ speaker.name }</li>
-          );
+            return (
+                <li className="mui-menu-item speaker-item valign-wrapper" key={n}>
+                    <img className="circle responsive-img valign" src={speaker.pictureURL} />
+                    <div className="speaker-info">
+                        <h4 className="speaker-name">{ speaker.firstName } {speaker.lastName}</h4>
+                        <p>{speaker.title} - <span>{speaker.date}</span></p>
+                    </div>
+                </li>
+            );
         });
 
         return (
@@ -35,15 +51,16 @@ class SpeakerList extends React.Component {
                 <h2 className="mui-font-style-headline">Speakers</h2>
                 <div className="code-example mui-paper mui-z-depth-1 mui-rounded">
                     <div className="mui-paper-container mui-z-depth-bottom">
-                    <ul className="mui-menu">
-                        {list}
-                    </ul>
+                        <ul className="mui-menu">
+                            {list}
+                        </ul>
                     </div>
                 </div>
+                { snackbar }
             </div>
         );
     }
 }
-reactMixin.onClass(SpeakerList, Reflux.connect(speakersStore, 'speakers')); 
+reactMixin.onClass(SpeakerList, Reflux.connect(speakersStore));
 
 export default SpeakerList;

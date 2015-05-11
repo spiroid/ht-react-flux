@@ -101,3 +101,38 @@
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     border: 0 none;
 }
+
+
+
+img.responsive-img, video.responsive-video {
+    height: auto;
+    max-width: 100%;
+}
+.circle {
+    border-radius: 50%;
+}
+
+.valign-wrapper {
+    align-items: center;
+    display: flex;
+}
+
+.valign-wrapper .valign {
+    display: block;
+}
+
+.speaker-item {
+    padding: 20px;
+
+    > .responsive-img {
+        width: 8%;
+    }
+
+    .speaker-info {
+        padding-left: 20px;
+    }
+
+    .speaker-name {
+        margin-bottom: 0;
+    }
+}

@@ -10,17 +10,36 @@ export default Reflux.createStore({
 
     init: function() {
         this.data = [];
-        console.log('[STORE] init', this.data);
+        this.error = '';
+        console.log('[STORE] init');
     },
 
     onGetSpeakersCompleted: function(data) {
         console.log('[STORE] get speakers action received', data);
         this.data = data;
-        this.trigger(data);
+        this.error = '';
+        this.triggerAll();
+    },
+
+    onGetSpeakersFailed: function(error) {
+        console.log('[STORE] get speakers action fail received', error);
+        this.data = [];
+        this.error = error.message;
+        this.triggerAll();
     },
 
     getInitialState: function() {
         console.log('[STORE] get initial state');
-        return this.data;
+        return {
+            speakers: this.data,
+            error: this.error
+        };
+    },
+
+    triggerAll: function() {
+        this.trigger({
+            speakers: this.data,
+            error: this.error
+        });
     }
 });

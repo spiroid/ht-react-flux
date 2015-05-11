@@ -1,27 +1,20 @@
 'use strict';
 
 import Reflux from 'reflux';
+import speakersApi from '../api.js';
 
+var api = speakersApi.api;
 var actions = Reflux.createActions({
     'getSpeakers': { asyncResult: true,}
 });
 
-actions.getSpeakers.listen(() => {
+actions.getSpeakers.listenAndPromise(() => {
     console.log('[ACTION] Get speakers');
-    actions.getSpeakers.completed([
-        {
-            name: 'Maxime Gaudin',
-        },
-        {
-            name: 'Jean Helou',
-        },
-        {
-            name: 'Nicolas Demengel',
-        },
-        {
-            name: 'Cédric Vanet'
-        }
-    ]);
+    return api
+        .speakers()
+        .then(res => {
+            return res.body;
+        })
 });
 
 export default actions;
