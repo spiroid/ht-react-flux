@@ -1,6 +1,6 @@
 {
   "name": "ht-react-flux",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Human Talks - ReactJS and Flux architecture",
   "repository": {
     "type": "git",
